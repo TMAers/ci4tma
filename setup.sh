@@ -2,7 +2,7 @@
 
 export http_proxy=http://<proxy host IP>:<Port>
 export https_proxy=http://<proxy host IP>:<Port>
-export CPMS_HOME=/opt/cpms
+export CI4TMA_HOME=/opt/cpms
 # Require to change to IP of your machine or FQDN
 export HOST_IP= <Host IP>
 
@@ -32,24 +32,24 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 docker-compose --version
 
-sed -e 's,CPMS_HOME,'$CPMS_HOME',g' -i ./docker-compose.yml
+sed -e 's,CI4TMA_HOME,'$CI4TMA_HOME',g' -i ./docker-compose.yml
 sed -e 's,PHABRICATOR_HOST=HOST_IP,PHABRICATOR_HOST='$HOST_IP',g' -i ./docker-compose.yml
 
-sudo mkdir -p $CPMS_HOME/phab/repos
-sudo mkdir -p $CPMS_HOME/phab/extensions
-sudo mkdir -p $CPMS_HOME/phab/mysql
-sudo mkdir -p $CPMS_HOME/phab/sshkeys
-sudo mkdir -p $CPMS_HOME/phab/filestore
-sudo mkdir -p $CPMS_HOME/jenkins
-sudo mkdir -p $CPMS_HOME/artifactory
-sudo mkdir -p $CPMS_HOME/sonarqube/conf
-sudo mkdir -p $CPMS_HOME/sonarqube/data
-sudo mkdir -p $CPMS_HOME/sonarqube/extensions
-sudo mkdir -p $CPMS_HOME/sonarqube/bundled-plugins
-sudo mkdir -p $CPMS_HOME/sonarqube/postgresql
-sudo mkdir -p $CPMS_HOME/sonarqube/postgresql/data
+sudo mkdir -p $CI4TMA_HOME/phab/repos
+sudo mkdir -p $CI4TMA_HOME/phab/extensions
+sudo mkdir -p $CI4TMA_HOME/phab/mysql
+sudo mkdir -p $CI4TMA_HOME/phab/sshkeys
+sudo mkdir -p $CI4TMA_HOME/phab/filestore
+sudo mkdir -p $CI4TMA_HOME/jenkins
+sudo mkdir -p $CI4TMA_HOME/artifactory
+sudo mkdir -p $CI4TMA_HOME/sonarqube/conf
+sudo mkdir -p $CI4TMA_HOME/sonarqube/data
+sudo mkdir -p $CI4TMA_HOME/sonarqube/extensions
+sudo mkdir -p $CI4TMA_HOME/sonarqube/bundled-plugins
+sudo mkdir -p $CI4TMA_HOME/sonarqube/postgresql
+sudo mkdir -p $CI4TMA_HOME/sonarqube/postgresql/data
 
-sudo chmod -R 777 $CPMS_HOME/phab/filestore
-sudo chmod -R 777 $CPMS_HOME/phab/repos
+sudo chmod -R 777 $CI4TMA_HOME/phab/filestore
+sudo chmod -R 777 $CI4TMA_HOME/phab/repos
 
 sudo docker-compose up -d

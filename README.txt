@@ -19,7 +19,7 @@ II. SYSTEM REQUIREMENTS
 III. INSTALLATION
 - Before installing, you must configure DNS for your machine to resolve tma domain
 and ensure internet connectivity during installation time.
-- Change value of variables in setup.sh file: CPMS_HOME (line 5) and HOST_IP (line 7) to appropriate values.
+- Change value of variables in setup.sh file: CI4TMA_HOME (line 5) and HOST_IP (line 7) to appropriate values.
 - Transfer files: setup.sh, docker-compose.yml to your machine then run below commands:
     sudo chmod 755 ./setup.sh
     sudo ./setup.sh
