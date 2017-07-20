@@ -43,7 +43,7 @@ services:
     volumes:
       - CPMS_HOME/jenkins:/var/jenkins_home
     environment:
-      - JAVA_OPTS=-Dhttp.proxyHost=10.10.10.10 -Dhttp.proxyPort=8080 -Dhttps.proxyHost=10.10.10.10 -Dhttps.proxyPort=8080
+      - JAVA_OPTS=-Dhttp.proxyHost=<proxyHost IP> -Dhttp.proxyPort= <Proxy Port> -Dhttps.proxyHost= <proxyHost IP> -Dhttps.proxyPort= <Port>
   artifactory:
     image: docker.bintray.io/jfrog/artifactory-oss:latest
     ports:
