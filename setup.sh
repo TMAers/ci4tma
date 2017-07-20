@@ -1,15 +1,15 @@
 #!/bin/sh
 
-export http_proxy=http://proxy.tma.com.vn:8080
-export https_proxy=http://proxy.tma.com.vn:8080
+export http_proxy=http://<proxy host IP>:<Port>
+export https_proxy=http://<proxy host IP>:<Port>
 export CPMS_HOME=/opt/cpms
 # Require to change to IP of your machine or FQDN
-export HOST_IP=192.168.88.57
+export HOST_IP= <Host IP>
 
 APTFILE="/etc/apt/apt.conf.d/10proxy"
 
 /bin/cat <<EOM >$APTFILE
-Acquire::http::Proxy "http://proxy.tma.com.vn:8080";
+Acquire::http::Proxy "http://<proxy host IP>:<Port>";
 EOM
 
 sudo apt update
@@ -21,7 +21,7 @@ APTFILE="/etc/systemd/system/docker.service.d/http-proxy.conf"
 
 /bin/cat <<EOM >$APTFILE
 [Service]
-Environment=HTTP_PROXY=proxy.tma.com.vn:8080
+Environment=HTTP_PROXY=<proxy host IP>:<Port>
 EOM
 
 sudo systemctl daemon-reload
