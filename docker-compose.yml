@@ -1,0 +1,82 @@
+version: '2'
+services:
+  phabricator:
+    restart: always
+    privileged: true
+    ports:
+     - "443:443"
+     - "80:80"
+     - "2222:22"
+    volumes:
+     - CPMS_HOME/phab/repos:/repos
+     - CPMS_HOME/phab/extensions:/srv/phabricator/phabricator/src/extensions
+     - CPMS_HOME/phab/sshkeys:/sshkeys
+     - CPMS_HOME/phab/filestore:/filestore
+    depends_on:
+     - mysql
+    links:
+     - mysql
+    environment:
+     - MYSQL_HOST=mysql
+     - MYSQL_USER=root
+     - MYSQL_PASS=phabricator
+     - PHABRICATOR_REPOSITORY_PATH=/repos
+     - PHABRICATOR_HOST=HOST_IP
+     - PHABRICATOR_HOST_KEYS_PATH=/sshkeys
+     - PHABRICATOR_STORAGE_TYPE=disk
+     - PHABRICATOR_STORAGE_PATH=/filestore
+     - PHABRICATOR_VCS_PORT=2222
+    image: redpointgames/phabricator
+  mysql:
+    restart: always
+    privileged: true
+    volumes:
+     - CPMS_HOME/phab/mysql:/var/lib/mysql
+    image: mysql:5.7.14
+    environment:
+     - MYSQL_ROOT_PASSWORD=phabricator
+  jenkins:
+    restart: always
+    image: jenkinsci/jenkins:lts
+    ports:
+      - "8080:8080"
+    volumes:
+      - CPMS_HOME/jenkins:/var/jenkins_home
+    environment:
+      - JAVA_OPTS=-Dhttp.proxyHost=10.10.10.10 -Dhttp.proxyPort=8080 -Dhttps.proxyHost=10.10.10.10 -Dhttps.proxyPort=8080
+  artifactory:
+    image: docker.bintray.io/jfrog/artifactory-oss:latest
+    ports:
+     - "8081:8081"
+    volumes:
+     - CPMS_HOME/artifactory:/var/opt/jfrog/artifactory
+    restart: always
+  sonarqube:
+    restart: always
+    image: sonarqube
+    ports:
+      - "9000:9000"
+    networks:
+      - sonarnet
+    environment:
+      - SONARQUBE_JDBC_URL=jdbc:postgresql://postgre:5432/sonar
+    volumes:
+      - CPMS_HOME/sonarqube/conf:/opt/sonarqube/conf
+      - CPMS_HOME/sonarqube/data:/opt/sonarqube/data
+      - CPMS_HOME/sonarqube/extensions:/opt/sonarqube/extensions
+      - CPMS_HOME/sonarqube/bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+  postgre:
+    restart: always
+    image: postgres
+    networks:
+      - sonarnet
+    environment:
+      - POSTGRES_USER=sonar
+      - POSTGRES_PASSWORD=sonar
+    volumes:
+      - CPMS_HOME/sonarqube/postgresql:/var/lib/postgresql
+      - CPMS_HOME/sonarqube/postgresql/data:/var/lib/postgresql/data
+networks:
+  sonarnet:
+    driver: bridge
+
