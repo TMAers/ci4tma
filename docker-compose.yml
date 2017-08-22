@@ -32,6 +32,7 @@ services:
     privileged: true
     volumes:
      - CI4TMA_HOME/phab/mysql:/var/lib/mysql
+     - CI4TMA_HOME/phab/mycnf:/etc/mysql/conf.d
     image: mysql:5.7.14
     environment:
      - MYSQL_ROOT_PASSWORD=phabricator

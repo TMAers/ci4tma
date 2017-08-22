@@ -38,6 +38,8 @@ sed -e 's,PHABRICATOR_HOST=HOST_IP,PHABRICATOR_HOST='$HOST_IP',g' -i ./docker-co
 sudo mkdir -p $CI4TMA_HOME/phab/repos
 sudo mkdir -p $CI4TMA_HOME/phab/extensions
 sudo mkdir -p $CI4TMA_HOME/phab/mysql
+sudo mkdir -p $CI4TMA_HOME/phab/mycnf
+cp mysqld.cnf $CI4TMA_HOME/phab/mycnf/mysqld.cnf
 sudo mkdir -p $CI4TMA_HOME/phab/sshkeys
 sudo mkdir -p $CI4TMA_HOME/phab/filestore
 sudo mkdir -p $CI4TMA_HOME/jenkins
