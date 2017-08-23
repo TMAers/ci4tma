@@ -26,7 +26,7 @@ services:
      - PHABRICATOR_STORAGE_TYPE=disk
      - PHABRICATOR_STORAGE_PATH=/filestore
      - PHABRICATOR_VCS_PORT=2222
-     - ENABLE_ACPU=true
+     - ENABLE_APCU=true
     image: redpointgames/phabricator
   mysql:
     restart: always
